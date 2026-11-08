@@ -2,15 +2,16 @@
 
 A university software engineering project that presents a local, fictional view of an organization's migration to post-quantum cryptography using ML-KEM.
 
-The dashboard highlights migration coverage alongside classical key exchange, potential Harvest Now, Decrypt Later (HNDL) exposure, unexpected fallback indicators, and organizational risks. It supports executive, project management, and connection-level security review in one application.
+The single-page dashboard brings together executive security posture, migration progress, organizational risks, connection-level exposure, and security event context.
 
 ## Scope and limitations
 
-- All connection, risk, and event records are local fictional data.
-- The application does not monitor infrastructure, connect to external services, or perform cryptographic operations.
-- HNDL ratings describe potential future exposure, not evidence that traffic has been collected.
-- Unexpected fallback events are review indicators, not proof of a successful attack.
-- PQC coverage is an adoption metric, not a complete security score.
+- Connection, risk, and event records are local synthetic data.
+- The application does not monitor real infrastructure, connect to external services, or perform cryptographic operations.
+- HNDL ratings describe potential future exposure; they are not evidence that traffic has been collected.
+- Unexpected fallback events are indicators for review, not proof of a successful attack.
+- PQC coverage measures ML-KEM adoption. It is not a complete security score and does not replace the separate overall risk status.
+- Risk classifications and status thresholds are initial, explainable project rules, not a formal security certification.
 
 ## Technology
 
@@ -34,7 +35,7 @@ npm run dev
 
 Vite prints the local development URL after it starts.
 
-## Validation and production build
+## Tests and production build
 
 ```sh
 npm test
@@ -42,25 +43,47 @@ npm run build
 npm run preview
 ```
 
-`npm run build` runs the TypeScript project checks before creating the production bundle in `dist/`. The `dist/` directory is generated output and should not be committed.
+`npm run build` runs TypeScript project checks and then creates the production bundle in `dist/`. The `dist/` directory is generated output and should not be committed.
 
 ## Project structure
 
 ```text
-src/
-  components/   Shared layout and UI components
-  data/         Local fictional connection, event, and risk records
-  features/     Overview, migration, risks, connections, and event views
-  services/     Metric calculations and risk assessment rules
-  types/        Shared TypeScript models
-  utils/        Reserved for shared utilities
-  App.tsx       Feature composition
-  main.tsx      React entry point
-tests/          Vitest unit tests
+.
+├── index.html                    Vite HTML entry point
+├── package.json                  Dependencies and npm scripts
+├── package-lock.json             Locked dependency versions for reproducible installs
+├── postcss.config.js             PostCSS and Tailwind integration
+├── tailwind.config.js            Tailwind content paths and theme configuration
+├── tsconfig.json                 TypeScript project references
+├── tsconfig.app.json             TypeScript settings for application source
+├── tsconfig.node.json            TypeScript settings for Vite/Vitest configuration
+├── vite.config.ts                Vite React application configuration
+├── vitest.config.ts              Unit test configuration
+├── src/
+│   ├── App.tsx                   Composes dashboard sections in the application shell
+│   ├── main.tsx                  React entry point
+│   ├── index.css                 Tailwind directives and global styles
+│   ├── components/
+│   │   ├── layout/
+│   │   │   └── AppShell.tsx      Responsive sidebar, header, and page layout
+│   │   └── ui/                   Shared badges, metric cards, headers, and states
+│   ├── data/                     Local fictional connections, events, and risks
+│   ├── features/
+│   │   ├── connections/          Searchable and filterable connection inventory
+│   │   ├── events/               Contextual security event feed
+│   │   ├── migration/            Migration KPIs, status chart, and blocked devices
+│   │   ├── overview/             Executive status, KPIs, and PQC adoption chart
+│   │   └── risks/                Organizational risk details and severity chart
+│   ├── services/
+│   │   ├── metrics.ts            Coverage, counts, and chart distributions
+│   │   └── riskAssessment.ts     Connection risk and overall status rules
+│   └── types/
+│       └── security.ts           Shared connection, event, and risk types
+└── tests/
+    ├── businessLogic.test.ts     Metric, risk, and status unit tests
+    └── setup.test.ts             Basic Vitest setup check
 ```
 
 ## Git notes
 
 Commit `package-lock.json` so installs can use `npm ci`. Do not commit `node_modules/`, generated build output, local environment files, editor state, or TypeScript build cache files; these are covered by `.gitignore`.
-
-No hosting-provider deployment configuration is included because the target hosting platform has not been selected. The Vite production build can be deployed to a static host by publishing the contents of `dist/`.
