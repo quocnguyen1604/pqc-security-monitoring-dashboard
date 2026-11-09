@@ -59,6 +59,9 @@ npm run preview
 ├── tsconfig.node.json            TypeScript settings for Vite/Vitest configuration
 ├── vite.config.ts                Vite React application configuration
 ├── vitest.config.ts              Unit test configuration
+├── docs/
+│   ├── decisionLog.md             Record of technical and architectural decisions
+│   └── riskLog.md                 Project risk register and mitigation tracking
 ├── src/
 │   ├── App.tsx                   Composes dashboard sections in the application shell
 │   ├── main.tsx                  React entry point
