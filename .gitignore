@@ -1,4 +1,4 @@
-﻿# Dependencies
+# Dependencies
 node_modules/
 
 # Production builds
@@ -9,6 +9,7 @@ node_modules/
 .env
 .env.*
 !.env.example
+*.local
 
 # Logs and package manager debug files
 npm-debug.log*

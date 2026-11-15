@@ -2,7 +2,7 @@
 
 A university software engineering project that presents a local, fictional view of an organization's migration to post-quantum cryptography using ML-KEM.
 
-The single-page dashboard brings together executive security posture, migration progress, organizational risks, connection-level exposure, and security event context.
+The single-page dashboard brings together executive security posture, migration progress and blocker reasons, organizational risks, connection-level exposure, and filterable security event context.
 
 ## Scope and limitations
 
@@ -68,22 +68,24 @@ npm run preview
 │   ├── index.css                 Tailwind directives and global styles
 │   ├── components/
 │   │   ├── layout/
-│   │   │   └── AppShell.tsx      Responsive sidebar, header, and page layout
+│   │   │   └── AppShell.tsx      Responsive navigation, header, and page layout
 │   │   └── ui/                   Shared badges, metric cards, headers, and states
 │   ├── data/                     Local fictional connections, events, and risks
 │   ├── features/
 │   │   ├── connections/          Searchable and filterable connection inventory
-│   │   ├── events/               Contextual security event feed
-│   │   ├── migration/            Migration KPIs, status chart, and blocked devices
-│   │   ├── overview/             Executive status, KPIs, and PQC adoption chart
-│   │   └── risks/                Organizational risk details and severity chart
+│   │   ├── events/               Severity/type filters and expandable event context
+│   │   ├── migration/            Migration KPIs, status chart, and blocker details
+│   │   ├── overview/             Executive status, KPIs, and adoption chart
+│   │   └── risks/                Organizational risks and severity chart
 │   ├── services/
+│   │   ├── events.ts             Event filtering and contextual explanations
 │   │   ├── metrics.ts            Coverage, counts, and chart distributions
 │   │   └── riskAssessment.ts     Connection risk and overall status rules
 │   └── types/
 │       └── security.ts           Shared connection, event, and risk types
 └── tests/
     ├── businessLogic.test.ts     Metric, risk, and status unit tests
+    ├── events.test.ts            Event filtering and context tests
     └── setup.test.ts             Basic Vitest setup check
 ```
 
