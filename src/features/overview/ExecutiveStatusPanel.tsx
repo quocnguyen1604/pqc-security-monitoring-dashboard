@@ -8,27 +8,24 @@ interface ExecutiveStatusPanelProps {
   status: OverallSecurityStatus
 }
 
-const statusCopy: Record<OverallSecurityStatus, { action: string; explanation: string; color: string }> = {
+const statusCopy: Record<OverallSecurityStatus, { action: string; explanation: string }> = {
   Red: {
     action: 'Action required',
-    explanation: 'High-risk classical exposure and unresolved indicators need review. PQC coverage is shown separately and does not determine this status.',
-    color: 'rose',
+    explanation: 'High-risk classical connections and unresolved indicators need review.',
   },
   Amber: {
     action: 'Attention needed',
-    explanation: 'Classical exposure or elevated connection risk remains. Continue migration and review the listed exceptions.',
-    color: 'amber',
+    explanation: 'Classical connections or elevated risks remain. Continue migration and review exceptions.',
   },
   Green: {
     action: 'Acceptable under defined risk criteria',
-    explanation: 'No red or amber condition was found under the current status rules. This is not a guarantee of security.',
-    color: 'emerald',
+    explanation: 'No red or amber conditions were found under the current risk rules.',
   },
 }
 
 export function ExecutiveStatusPanel({ status }: ExecutiveStatusPanelProps) {
   const copy = statusCopy[status]
-  const factors = getOverallStatusFactors(mockConnections, mockEvents)
+  const factors = getOverallStatusFactors(mockConnections, mockEvents).slice(0, 3)
   const topActions = mockRisks.slice(0, 3)
   const colorClasses = {
     Red: 'border-rose-500 bg-rose-950/50 text-rose-300 shadow-rose-950/30',
@@ -76,7 +73,7 @@ export function ExecutiveStatusPanel({ status }: ExecutiveStatusPanelProps) {
 
           <p className="mt-5 flex items-start gap-2 border-t border-slate-800 pt-4 text-xs leading-5 text-slate-500">
             <CheckCircle2 size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
-            Status follows the documented risk assessment rules. HNDL is potential future exposure; an unexpected fallback is an indicator, not proof of attack.
+            HNDL means possible future exposure. Fallback indicators do not confirm an attack.
           </p>
         </div>
       </div>
