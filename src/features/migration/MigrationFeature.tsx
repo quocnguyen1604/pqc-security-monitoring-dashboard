@@ -4,6 +4,7 @@ import { mockEvents } from '../../data/mockEvents'
 import { calculateMetrics, calculateMigrationStatusDistribution } from '../../services/metrics'
 import { MetricCard } from '../../components/ui/MetricCard'
 import { SectionHeader } from '../../components/ui/SectionHeader'
+import { StatusBadge } from '../../components/ui/StatusBadge'
 import { MigrationStatusChart } from './MigrationStatusChart'
 
 const metrics = calculateMetrics(mockConnections, mockEvents)
@@ -28,19 +29,31 @@ export function MigrationFeature() {
           <h3 className="font-semibold text-slate-100">Blocked devices</h3>
           <p className="mt-1 text-sm text-slate-400">Connections currently recorded with migration status Blocked.</p>
           {blockedConnections.length > 0 ? (
-            <ul className="mt-4 divide-y divide-slate-800">
+            <ul className="mt-4 space-y-3">
               {blockedConnections.map((connection) => (
-                <li key={connection.id} className="flex flex-col gap-1 py-3 first:pt-0 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-slate-200">{connection.deviceName}</p>
-                    <p className="mt-1 text-xs text-slate-500">{connection.site} · {connection.criticality} criticality</p>
+                <li key={connection.id} className="rounded-lg border border-slate-800 bg-slate-950/40 p-4">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                      <p className="text-sm font-semibold text-slate-100">{connection.deviceName}</p>
+                      <p className="mt-1 text-xs text-slate-500">{connection.site} · {connection.criticality} criticality</p>
+                    </div>
+                    <StatusBadge tone="danger">{connection.migrationStatus}</StatusBadge>
                   </div>
-                  <p className="text-xs text-slate-400">{connection.expectedReplacementDate ? `Replacement target ${dateFormatter.format(new Date(`${connection.expectedReplacementDate}T00:00:00Z`))}` : 'No target date recorded'}</p>
+                  <dl className="mt-3 grid gap-3 border-t border-slate-800 pt-3 sm:grid-cols-2">
+                    <div>
+                      <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Blocker reason</dt>
+                      <dd className="mt-1 text-sm text-amber-200">{connection.migrationBlockerReason ?? 'Reason not recorded'}</dd>
+                    </div>
+                    <div>
+                      <dt className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Replacement target</dt>
+                      <dd className="mt-1 text-sm text-slate-300">{connection.expectedReplacementDate ? dateFormatter.format(new Date(`${connection.expectedReplacementDate}T00:00:00Z`)) : 'No target date recorded'}</dd>
+                    </div>
+                  </dl>
                 </li>
               ))}
             </ul>
           ) : <p className="mt-4 text-sm text-slate-400">No devices are currently marked blocked.</p>}
-          <p className="mt-4 border-t border-slate-800 pt-3 text-xs leading-5 text-slate-500">The source inventory records status and replacement target, but does not currently include blocker reasons or schedule baselines.</p>
+          <p className="mt-4 border-t border-slate-800 pt-3 text-xs leading-5 text-slate-500">Blocker categories and target dates are illustrative dataset fields. Schedule baselines and milestone tracking are not modeled.</p>
         </article>
       </div>
       <p className="rounded-lg border border-amber-900/60 bg-amber-950/20 p-3 text-xs leading-5 text-amber-200/80">Migration percentage describes algorithm adoption only; it does not account for every operational or HNDL risk.</p>

@@ -101,6 +101,14 @@ describe('event metrics', () => {
       Low: 0,
     })
   })
+
+  it('provides blocker reasons only for blocked fixture connections', () => {
+    const blocked = mockConnections.filter((connection) => connection.migrationStatus === 'Blocked')
+    const notBlocked = mockConnections.filter((connection) => connection.migrationStatus !== 'Blocked')
+    expect(blocked.length).toBeGreaterThan(0)
+    expect(blocked.every((connection) => connection.migrationBlockerReason !== undefined)).toBe(true)
+    expect(notBlocked.every((connection) => connection.migrationBlockerReason === undefined)).toBe(true)
+  })
 })
 
 describe('connection risk classification', () => {

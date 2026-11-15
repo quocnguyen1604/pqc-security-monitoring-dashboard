@@ -3,6 +3,7 @@ export type DeviceCategory = 'Field gateway' | 'Environmental sensor' | 'Industr
 export type DeviceCriticality = 'Low' | 'Medium' | 'High' | 'Critical'
 export type HndlExposure = 'Low' | 'Moderate' | 'High'
 export type MigrationStatus = 'Migrated' | 'In progress' | 'Blocked' | 'Planned'
+export type MigrationBlockerReason = 'Hardware incompatibility' | 'Vendor support unavailable' | 'Replacement pending' | 'Compatibility testing required'
 export type EventType = 'expected_fallback' | 'unexpected_fallback' | 'handshake_failure' | 'policy_change' | 'migration_checkpoint'
 export type EventSeverity = 'Info' | 'Low' | 'Medium' | 'High' | 'Critical'
 export type InvestigationStatus = 'Not required' | 'Open' | 'In review' | 'Resolved'
@@ -20,6 +21,7 @@ export interface Connection {
   criticality: DeviceCriticality
   hndlExposure: HndlExposure
   migrationStatus: MigrationStatus
+  migrationBlockerReason?: MigrationBlockerReason
   lastSeenAt: string
   expectedReplacementDate?: string
 }
