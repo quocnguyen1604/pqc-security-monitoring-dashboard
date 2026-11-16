@@ -1,9 +1,12 @@
 ﻿import {
   Activity,
   AlertTriangle,
+  CalendarDays,
   Cable,
   ChartNoAxesCombined,
   ChevronLeft,
+  Database,
+  FileText,
   Menu,
   Radio,
   Shield,
@@ -15,9 +18,12 @@ import { StatusBadge } from '../ui/StatusBadge'
 const navigation = [
   { label: 'Dashboard overview', href: '#overview', icon: ChartNoAxesCombined },
   { label: 'Migration progress', href: '#migration', icon: Activity },
+  { label: 'Customer deadline', href: '#customer-migration', icon: CalendarDays },
   { label: 'Security risks', href: '#risks', icon: AlertTriangle },
+  { label: 'HNDL by data class', href: '#customer-exposure', icon: Database },
   { label: 'Connection inventory', href: '#connections', icon: Cable },
   { label: 'Security events', href: '#events', icon: Radio },
+  { label: 'Customer report preview', href: '#customer-report', icon: FileText },
 ]
 
 interface AppShellProps {
@@ -38,7 +44,7 @@ export function AppShell({ children }: AppShellProps) {
 
   return (
     <div className="min-h-screen bg-[#080f1c] text-slate-100">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-slate-800 bg-[#0b1422] lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col overflow-y-auto border-r border-slate-800 bg-[#0b1422] lg:flex">
         <a href="#overview" className="flex h-[76px] items-center gap-3 border-b border-slate-800 px-6" aria-label="PQC Security Monitor home">
           <span className="rounded-lg border border-cyan-900 bg-cyan-950/70 p-2 text-cyan-300"><ShieldCheck size={21} /></span>
           <span>
@@ -79,7 +85,7 @@ export function AppShell({ children }: AppShellProps) {
           onClick={() => setMobileNavOpen(false)}
         />
       )}
-      <aside className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col border-r border-slate-800 bg-[#0b1422] transition-transform lg:hidden ${mobileNavOpen ? 'translate-x-0' : '-translate-x-full'}`} aria-label="Mobile navigation">
+      <aside className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col overflow-y-auto border-r border-slate-800 bg-[#0b1422] transition-transform lg:hidden ${mobileNavOpen ? 'translate-x-0' : '-translate-x-full'}`} aria-label="Mobile navigation">
         <div className="flex h-[76px] items-center justify-between border-b border-slate-800 px-5">
           <span className="flex items-center gap-3 font-semibold"><ShieldCheck className="text-cyan-300" size={20} /> PQC Security Monitor</span>
           <button type="button" onClick={() => setMobileNavOpen(false)} className="rounded-md p-2 text-slate-400 hover:bg-slate-800" aria-label="Close navigation"><ChevronLeft size={19} /></button>
