@@ -51,12 +51,13 @@ export function ConnectionsFeature() {
           <span>HNDL indicates potential future exposure</span>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[900px] border-collapse text-left">
+          <table className="w-full min-w-[1040px] border-collapse text-left">
             <thead className="bg-slate-950/50 text-[11px] uppercase tracking-wider text-slate-500">
               <tr>
                 <th scope="col" className="px-4 py-3 font-semibold">Device</th>
                 <th scope="col" className="px-4 py-3 font-semibold">Location</th>
                 <th scope="col" className="px-4 py-3 font-semibold">Key exchange</th>
+                <th scope="col" className="px-4 py-3 font-semibold">Data scope</th>
                 <th scope="col" className="px-4 py-3 font-semibold">Criticality</th>
                 <th scope="col" className="px-4 py-3 font-semibold">HNDL exposure</th>
                 <th scope="col" className="px-4 py-3 font-semibold">Migration status</th>
@@ -71,6 +72,7 @@ export function ConnectionsFeature() {
                   </th>
                   <td className="px-4 py-3.5 text-sm text-slate-400">{connection.site}</td>
                   <td className="px-4 py-3.5"><StatusBadge tone={connection.keyExchangeAlgorithm === 'ML-KEM-768' ? 'success' : 'warning'}>{connection.keyExchangeAlgorithm}</StatusBadge></td>
+                  <td className="px-4 py-3.5"><StatusBadge tone={connection.carriesCustomerData ? 'info' : 'neutral'}>{connection.carriesCustomerData ? 'Customer data' : 'Organizational'}</StatusBadge></td>
                   <td className="px-4 py-3.5"><span className={`text-sm ${connection.criticality === 'Critical' ? 'font-semibold text-rose-300' : connection.criticality === 'High' ? 'text-orange-300' : 'text-slate-300'}`}>{connection.criticality}</span></td>
                   <td className="px-4 py-3.5"><StatusBadge tone={exposureTone[connection.hndlExposure]}>{connection.hndlExposure}</StatusBadge></td>
                   <td className="px-4 py-3.5"><StatusBadge tone={migrationTone[connection.migrationStatus]}>{connection.migrationStatus}</StatusBadge></td>

@@ -10,6 +10,7 @@ const makeConnection = (overrides: Partial<Connection> = {}): Connection => ({
   id: 'TEST-001',
   deviceName: 'Test Device',
   site: 'Test Site',
+  carriesCustomerData: false,
   category: 'Field gateway',
   keyExchangeAlgorithm: 'ML-KEM-768',
   isLegacy: false,

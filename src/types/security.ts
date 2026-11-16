@@ -14,6 +14,7 @@ export interface Connection {
   id: string
   deviceName: string
   site: string
+  carriesCustomerData: boolean
   category: DeviceCategory
   keyExchangeAlgorithm: KeyExchangeAlgorithm
   isLegacy: boolean
