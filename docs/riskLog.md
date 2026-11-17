@@ -176,3 +176,141 @@ Use the connection and risk views as the authoritative prioritization surface, i
 
 **Review history:**
 2026-11-11: Mitigated by separate metrics, layered status rules and tests covering 95% coverage with one critical exposed connection.
+
+
+### R-06: Customer replacement targets may not meet the proposed deadline
+
+- **Date identified:** 2026-11-15
+- **Probability:** High
+- **Impact:** High
+- **Risk status:** Open
+
+**Description:**
+The customer-specific dashboard shows that CON-004 and CON-019 have replacement targets in 2028, which is after the proposed 31 December 2027 deadline. CON-002 has no confirmed replacement target.
+
+**Potential consequences:**
+The group may not be able to show a clear migration schedule for all customer-data connections by the proposed date. Some customer data may remain associated with classical key exchange for longer than expected.
+
+**Mitigation strategy:**
+Confirm replacement dates with the relevant owners and suppliers. Review the two targets after the proposed deadline and ask for a replacement target for CON-002. Discuss the schedule with the Product Owner.
+
+**Contingency plan:**
+Escalate the missing and late targets, look for another suitable replacement or migration plan, and explain the remaining risks at the next review.
+
+**Review history:**
+2026-11-17: Added in Sprint 2 after the customer deadline was changed to a proposed date of 31 December 2027. The dashboard shows two potential deadline conflicts and one target that needs clarification.
+
+### R-07: The proposed customer deadline is not confirmed
+
+- **Date identified:** 2026-11-15
+- **Probability:** Medium
+- **Impact:** High
+- **Risk status:** Open
+
+**Description:**
+The customer has proposed 31 December 2027 as the new PQC deadline, but the proposal is still awaiting confirmation from the Product Owner and the customer.
+
+**Potential consequences:**
+The group may plan the migration or present the deadline as an approved commitment before it has been agreed.
+
+**Mitigation strategy:**
+Keep the deadline labeled as proposed in the dashboard. Ask the Product Owner to confirm the date and the customer-data scope before treating it as an approved requirement.
+
+**Contingency plan:**
+If the proposal changes, update the configured deadline, review the affected replacement targets, and update the customer report.
+
+**Review history:**
+2026-11-17: Added in Sprint 2. The dashboard labels the deadline as proposed and says that the agreement modification is awaiting confirmation.
+
+### R-08: Customer connection details and data classes may be incorrect
+
+- **Date identified:** 2026-11-15
+- **Probability:** High
+- **Impact:** High
+- **Risk status:** Open
+
+**Description:**
+The current demonstration marks 14 of 20 connections as carrying customer data. It uses Internal, Confidential, and Restricted as provisional data classes. These values are illustrative and have not been confirmed as the customer's actual inventory or classification scheme.
+
+**Potential consequences:**
+Incorrect connection details or data classes could affect customer PQC coverage, HNDL estimates, and the list of connections shown in the report.
+
+**Mitigation strategy:**
+Ask the Product Owner/customer to confirm which connections carry customer data and whether the three data classes are suitable. Keep the current values clearly labeled as synthetic until confirmation.
+
+**Contingency plan:**
+Update the connection flags and data classes, rerun the calculations and tests, and create a new report using the corrected information.
+
+**Review history:**
+2026-11-17: Added in Sprint 2 because the new customer report depends on customer-specific connection scope and data classification.
+
+### R-09: Synthetic HNDL estimates are mistaken for actual customer traffic
+
+- **Date identified:** 2026-11-15
+- **Probability:** Medium
+- **Impact:** High
+- **Risk status:** Mitigated
+
+**Description:**
+The customer exposure view uses fictional data-flow estimates (GB per month) for October 2026. The classical-associated volume is calculated from each linked connection's key-exchange algorithm. It does not measure real network traffic or attacker activity.
+
+**Potential consequences:**
+A reader may think the displayed volume is actual collected data or proof of a security breach.
+
+**Mitigation strategy:**
+Show the reporting period, unit, and synthetic-data note. Explain that classical key exchange indicates possible future HNDL exposure only and does not prove that data has been collected or compromised.
+
+**Contingency plan:**
+Correct any unclear wording, explain how the figures are calculated, and replace any report that presents the estimates as real traffic.
+
+**Review history:**
+2026-11-17: Mitigated in Sprint 2 through the customer reporting assumptions and the explanation shown with the HNDL breakdown. The dashboard shows 2,330 GB/month total estimated volume and 640 GB/month associated with classical key exchange. These are synthetic estimates, not measured traffic.
+
+### R-10: Customer data-flow records may be missing or linked incorrectly
+
+- **Date identified:** 2026-11-15
+- **Probability:** Medium
+- **Impact:** High
+- **Risk status:** Open
+
+**Description:**
+The HNDL breakdown depends on customer data-flow records being linked to the correct connection and data class. Missing or incorrect records could change the totals and percentages shown in the dashboard.
+
+**Potential consequences:**
+The customer may see an incorrect estimate of data associated with classical key exchange, or a connection contributing to exposure may be missing from the report.
+
+**Mitigation strategy:**
+Check that each data-flow record has a valid connection, data class, volume, unit, and reporting period. Compare the class totals with the source records and test the calculation when values are missing or zero.
+
+**Contingency plan:**
+Correct the records, then rerun the calculations and tests before using the report. If information is incomplete, label the affected result as incomplete rather than presenting it as final.
+
+**Review history:**
+2026-11-17: Added in Sprint 2 because the new exposure feature calculates class totals and percentages from linked synthetic data-flow records.
+
+### R-11: The customer report preview is not reviewed before it is shared
+
+- **Date identified:** 2026-11-15
+- **Probability:** Medium
+- **Impact:** Medium
+- **Risk status:** Open
+
+**Description:**
+
+The Sprint 2 requirements include an initial customer report structure for the next review meeting. The source code includes a customer report feature, but the report structure still needs review.
+
+**Potential consequences:**
+
+The report may not include the information or wording the Product Owner expects, or a draft based on synthetic data may be mistaken for an approved customer report.
+
+**Mitigation strategy:**
+
+Show the report preview to the Product Owner and ask for feedback on its sections, wording, and assumptions. Clearly label it as a draft based on synthetic data.
+
+**Contingency plan:**
+
+Update the report structure based on the feedback and review it again before sharing it outside the project group.
+
+**Review history:**
+
+2026-11-17: Added in Sprint 2 because the customer report feature needs Product Owner review before sharing.
